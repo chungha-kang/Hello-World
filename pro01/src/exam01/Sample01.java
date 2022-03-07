@@ -1,4 +1,4 @@
-package pro01;
+package exam01;
 
 public class Sample01 {
 
@@ -6,3 +6,4 @@ public class Sample01 {
 		System.out.println("Hello World!!");
 	}
 }
+
