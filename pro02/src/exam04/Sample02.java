@@ -36,6 +36,7 @@ public class Sample02 {
 		System.out.printf("%d > %d -> %b\n", num1, num2, num1 > num2);
 		System.out.printf("%d <= %d -> %b\n", num1, num2, num1 <= num2);
 		System.out.printf("%d >= %d -> %b\n", num1, num2, num1 >= num2);
+		System.out.println("d");
 		
 	}
 
