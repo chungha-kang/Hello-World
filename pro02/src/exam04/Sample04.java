@@ -13,6 +13,22 @@ public class Sample04 {
 		 * 섭씨 -> 화씨 변환 식
 		 * 		(섭씨 * (9 / 5)) + 32 = 화씨
 		 */
+		
+		// 내 풀
+		//Scanner sc = new Scanner(System.in);
+		
+		//int n1; 
+		//double r1;
+		
+		//System.out.print("섭씨 온도 정수 값을 입력 하시오 : ");
+		//n1 = sc.nextInt();
+		
+		//r1 = (n1 * (9/ 5 )) + 32;
+		
+		//System.out.println("섭씨를 화씨로 변환한 값 : " + r1);
+		
+		
+		//강사님 풀이
 		Scanner sc = new Scanner(System.in);
 		
 		int n1;
