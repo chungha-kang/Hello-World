@@ -1,6 +1,6 @@
 package exam02;
 
-public class Sample02_03 {
+public class Sample03 {
 
 	public static void main(String[] args) {
 		// 값을 감소 시키면서 반복

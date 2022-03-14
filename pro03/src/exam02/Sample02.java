@@ -1,6 +1,6 @@
 package exam02;
 
-public class Sample02_02 {
+public class Sample02 {
 
 	public static void main(String[] args) {
 		// 1 ~ 99 까지 반복문을 사용하여 반복출력 하시오. (단, 초기값 설정은 i = 1 로 한다.)

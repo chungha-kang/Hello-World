@@ -1,6 +1,6 @@
 package exam02;
 
-public class Sample02_01 {
+public class Sample01 {
 
 	public static void main(String[] args) {
 		/*
