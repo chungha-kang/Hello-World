@@ -9,6 +9,9 @@ public class Sample12 {
 		// 내 풀이
 		
 		
+		// 배열을 적용한다.
+		//		- 컴퓨터가 생선한 정수 값을 가위, 바위, 보로 치환하기 위한 배열
+		//		- 전적 기록을 배열을 사용하여 관리할 수 있도록 한다.
 		
 		// 강사님 풀이
 		Scanner sc = new Scanner(System.in);

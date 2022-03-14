@@ -31,7 +31,14 @@ public class Sample01 {
 		
 		System.out.println(arr1[0] + ", " + arr1[1] + ", " + arr1[2]);
 		System.out.println(arr2[0] + ", " + arr2[1] + ", " + arr2[2]);
-		
+	
+		/*
+		 * 반복문을 사용하여 배열의 값 사용(출력)
+		 */
+		for(int i = 0; i < 5; i++) {
+			System.out.println(arr1[i] + "\t");
+		}
+		System.out.print("\n");
 	}
 
 }
