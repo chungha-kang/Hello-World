@@ -1,5 +1,8 @@
 package exam01;
 
+import java.util.Arrays;
+import java.util.Scanner;
+
 public class Sample10 {
 
 	public static void main(String[] args) {
@@ -18,7 +21,40 @@ public class Sample10 {
 		 *		총 합 : 43
 		 *		평 균 : 14.3
 		 */
+		Scanner sc = new Scanner(System.in);
+		int cnt = 1, tot = 0;
+		int[] arr1 = new int[0];
 		
+		while(true) {
+			System.out.printf("%d 번째 정수값 입력 :", cnt);
+
+			int num; 
+			if(sc.hasNextInt()) {
+				num = sc.nextInt();
+				sc.nextLine();
+			} else {	
+			if(sc.nextLine().equals("exit")) {
+				break;
+			} else {
+				System.out.println("정수 값 또는 exit 를 입력하세요.");
+				continue;
+			}
+		}	
+		int[] temp = Arrays.copyOf(arr1,  arr1.length + 1);
+		arr1 = temp;
+		
+		arr1[cnt - 1] = num;
+		cnt += 1;
+		
+		System.out.println(Arrays.toString(arr1));
+	}
+		
+	for(int i = 0; i < arr1.length; i++) {
+		tot += arr1[i];
+	}
+		
+		System.out.println("총 합 : " + tot);
+		System.out.println("평 균 : " + avg);
 	}
 
 }
