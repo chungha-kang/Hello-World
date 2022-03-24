@@ -39,7 +39,7 @@ public class Sample05 {
 			origin[i] = sInput.charAt(i);
 		}
 		
-		char[] crypto = new char[origin.length];	// 배열, 길이 (속성) // new char[sInput.length()] 도 가능하지만 글자수를 맞춰주기 위해 origin 쓰는걸 추
+		char[] crypto = new char[origin.length];	// 배열, 길이 (속성) // new char[sInput.length()] 도 가능하지만 글자수를 맞춰주기 위해 origin 쓰는걸 추천
 		for(int i =0; i < crypto.length; i++) {	// length' = 문자열의 길이 만큼 사용하겠다
 			if(origin[i] + 3 > 'z') {
 				crypto[i] = (char)(origin[i] + 3 - 26);		// 'a' = 26

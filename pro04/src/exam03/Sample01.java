@@ -47,7 +47,7 @@ public class Sample01 {
 				int idx = c - 97;
 				counting[idx] += 1;
 				//System.out.printf("%c<->%d->%d\n", c, (int)c, c - 97);				
-			}
+			} 
 		}
 		
 		System.out.println(Arrays.toString(counting));

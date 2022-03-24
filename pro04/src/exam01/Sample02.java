@@ -68,6 +68,7 @@ public class Sample02 {
 		for(int i = 0; i < 5; i++) {
 			System.out.print(arr3[i] + "\t");
 		}
+		System.out.print("\n");
 		
 		/*
 		 * 배열의 크기가 5인 문자 배열을 선언하고 'A' ~ 'E' 까지의 문자값으로
@@ -79,7 +80,7 @@ public class Sample02 {
 			arr4[i] = (char)('A' + i);
 		}
 		for(int i = 0; i < 5; i++) {
-			System.out.println(arr4[i] + "\t");
+			System.out.print(arr4[i] + "\t");
 		}
 		System.out.print("\n");
 	}

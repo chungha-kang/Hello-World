@@ -33,10 +33,17 @@ public class Sample01 {
 		System.out.println(arr2[0] + ", " + arr2[1] + ", " + arr2[2]);
 	
 		/*
-		 * 반복문을 사용하여 배열의 값 사용(출력)
+		 * 반복문을 사용하여 배열의 값 초기화.
 		 */
 		for(int i = 0; i < 5; i++) {
-			System.out.println(arr1[i] + "\t");
+			arr1[i] = i + 1;
+		}
+		
+		/*
+		 * 반복문을 사용하여 배열의 값 사용
+		 */
+		for(int i = 0; i < 5; i++) {
+			System.out.print(arr1[i] + "\t");
 		}
 		System.out.print("\n");
 	}

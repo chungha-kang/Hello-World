@@ -6,7 +6,7 @@ public class Sample02 {
 
 	public static void main(String[] args) {
 		/*
-		 * 2차 배열의 깊은 복
+		 * 2차 배열의 깊은 복사
 		 */
 		
 		int[] arr1 = new int[] {1, 2, 3};
