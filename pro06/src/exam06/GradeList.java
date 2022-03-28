@@ -190,40 +190,81 @@ public class GradeList {
 	}
 	
 	public double getScore(String name) {
-		return 0;
+		return gArr[findIndex(name)].getScore();
 	}
 	
 	public double getAvg() {
-		return 0;
+		return getTotal() / length();
 	}
 	
 	public double getTotal() {
+		double tot = 0;
+		for(int i = 0; i < length(); i++) {
+			tot
+		}
 		return 0;
 	}
 	
-	public String[] getUnderScore() {
+	public String[] getUnder() {
 		// 과락의 기준은 100점 만점을 기준으로 40점 미만인 것.
+
+		
 		return null;
 	}
 	
 	public String[] getUnder(double score) {
 		// 과락의 기준을 외부 값으로 받아서 찾아내는 함수.
+		String[] result = new String[0];
+		for(int i = 0; i < length(); i++) {
+			if(gArr[i].getScore() < 40) {
+				result = Arrays.copyOf(result, result.length + 1);
+				result[result.length - 1] = gArr[i].getName();
+			}
+		}
 		return null;
 	}
 	
 	public String getTop() {
 		// 최고 득점을 받은 과목을 찾아내는 함수
-		return null;
+		Grade top = gArr[0];
+		for(int i = 1; i < length(); i++) {
+			if(top.getScore() < gArr[i].getScore()) {
+				top = gArr[i];
+			}
+		}
+		return top.getName();
 	}
 	
 	public String[] getTop(int count) {
 		// 최고 득점을 받은 과목을 count 만큼 찾아내는 함수
-		return null;
+		Grade[] tArr = gArr.clone();
+		
+		for(int i = 0; i < tArr.length - 1; i++) {
+			for(int j = i + 1; j < tArr.length; j++) {
+				if(tArr[i].getScore() > tArr[j].getScore()) {
+					Grade temp = tArr[i];
+					tArr[i] = tArr[j];
+					tArr[i] = temp;
+				}
+			}
+		}
+		String[] result = new String[0];
+		for(int i = 0; i < count; i++) {
+			result = Arrays.copyOf(result, result.length + 1);
+			result[result.length - 1] = tArr[i].getName();
+		}
+		return result;
 	}
 	
 	public String getBottom() {
 		// 최저 득점을 받은 과목을 찾아내는 함수
-		return null;
+		Grade bottom = gArr[0];
+		for(int i = 1; i < length(); i++) {
+			if(bottom.getScore() > gArr[i].getScore()) {
+				bottom = gArr[i];
+			}
+		}
+		return bottom.getName();
 	}
 	
 	public String[] getBottom(int count) {
