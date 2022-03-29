@@ -4,11 +4,12 @@ import exam03.pack1.AccessMain;
 
 public class AccessTest2 {
 	 public static void main(String[] args) {
+		 // 다른 패키지, 다른 패키지에서 AccessMain 클래스의
+		 // 멤버 변수에 접근
 		 AccessMain m1 = new AccessMain();
-			System.out.println(m1.v1);		// 다른 패키지에서 가져 올 수 있는건 public 뿐
-			System.out.println(m1.v2);
-			System.out.println(m1.v3);
-			System.out.println(m1.v4);		
+			System.out.println(m1.v1);	// public 가능 (다른 패키지에서 가져 올 수 있는건 public 뿐)
+			System.out.println(m1.v2);	// protected 불가
+			System.out.println(m1.v3);	// default 불가
+			System.out.println(m1.v4);	// private 불가
 	 }
-
 }
