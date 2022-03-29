@@ -1,10 +1,26 @@
-package exam04;
+package exam06;
 
 // 프리미엄 고객
 public class PremiumCustomer extends Customer {
 	// (이름, 나이, 성별), 할인률, 누적구입액
 	private int priceTotal;
 	private double discount;
+	
+	public int getPriceTotal() {
+		return priceTotal;
+	}
+
+	public void setPriceTotal(int priceTotal) {
+		this.priceTotal = priceTotal;
+	}
+
+	public double getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(double discount) {
+		this.discount = discount;
+	}
 
 	@Override
 	public void buy(String productName, int price) {

@@ -1,4 +1,4 @@
-package exam04;
+package exam06;
 
 import java.util.Objects;
 
