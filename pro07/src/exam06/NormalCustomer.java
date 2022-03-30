@@ -11,13 +11,17 @@ public class NormalCustomer extends Customer {
 		}
 
 		count++;
-		
 		if(count == 10) {
 			_addCoupon();
 			count = 0;
 		}
 		
 		super.buy(productName, price);
+	}
+	
+	@Override
+	public void refund() {
+		System.out.println("일반 고객은 영수증이 있어야 환불을 할 수 있습니다.");
 	}
 	
 	private void _addCoupon() {
