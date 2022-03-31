@@ -1,5 +1,5 @@
 package exam07_Teacher;
 
-public class DepartmentManager extends Employee{
+public class DepartmentManager extends Employee implements TeamManager {
 
 }
