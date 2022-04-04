@@ -71,12 +71,21 @@ public class Sample07 {
 		 * 동작 시킬 프로그램은 1 ~ 100,000 까지의 누적합을 구하는 코드로
 		 * 해당 반복이 얼만큼의 시간이 걸리는지 기록을 출력한다.
 		 */
+		Date start = new Date();	// 프로그램 시작전에 시간 측정
+		long tot = 0;
+		for(long i = 1; i <= 10000000000L; i++) {
+			tot += i;
+		}
+		Date end = new Date();	// 프로그램 종료 후 시간 측정
+		
+		long timer = end.getTime() - start.getTime();
+		System.out.println("걸린 시간 : " + timer / 1000.0 + " 초");
 
 	}
 
 	public static void main(String[] args) {
 		Sample07 sample = new Sample07();
-		sample.ex01();
+		sample.ex03();
 		// sample.ex02();
 		// sample.ex03();
 	}	
