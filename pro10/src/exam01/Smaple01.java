@@ -17,5 +17,7 @@ public class Smaple01 {
 		// m.exceptionNonThrows();
 		System.out.println("에러 발생 후 처리 온료!");
 	}
-	
+
 }
+
+
