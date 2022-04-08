@@ -20,7 +20,14 @@ public class Sample01 {
 		Constructor con3 = new Constructor();
 		System.out.println(con3.num1);
 
+		Constructor con4 = new Constructor(65);	// 출력 결과는??
+		System.out.print("\n");
 
+		Constructor con5 = new Constructor(10);
+		Constructor con6 = new Constructor(10, 20);
+		Constructor con7 = new Constructor(10, 20, 30);
+		Constructor con8 = new Constructor(10, 20, 30, 40);
+		
 	}
 
 }
