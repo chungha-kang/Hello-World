@@ -1,5 +1,7 @@
 package exam08;
 
+import java.util.Random;
+
 public class MethodSample {
 
 	public void method01() {
@@ -26,10 +28,30 @@ public class MethodSample {
 	}
 	
 	public void method05(int[] arr) {
+	//public int[] method05(int[] arr) {
+		//arr = arr.clone();
 		System.out.println("반환 타입은 String(클래스/객체) 이고 메개변수가 없는 메서드");
 		System.out.println(arr);
 		for(int i = 0; i < arr.length; i++) {
 			System.out.println("arr[" + i + "] -> " + arr[i]);
+		}
+		//arr[0] = 10;	arr[1] = 20;	arr[2] = 30;
+		//return arr;
+	}
+	
+	public int[] method06(Random r) {
+		System.out.println("반환 타입은 void 이고 매개변수가 클래스(객체)인 메서드");
+		int x1 = r.nextInt(10);
+		int x2 = r.nextInt(10);
+		//r.nextInt(10);
+		return new int[] {x1, x2};		// 반환값은 무조건 1개임. 즉, 2개 이상 일 경우 배열로 만들어준다.
+	}
+	
+	public void method07(int ... nums) {
+		System.out.println("반환 타입은 void 이고 매개변수가 가변인자인 메서드");
+		System.out.println(nums);
+		for(int i = 0; i < nums.length; i++) {
+			System.out.println("nums[" + i + "] -> " + nums[i]);
 		}
 	}
 }
