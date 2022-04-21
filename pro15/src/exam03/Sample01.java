@@ -51,7 +51,7 @@ public class Sample01 {
 			System.out.print(s + "\t");
 		}
 		System.out.println();
-		
+		 
 		for(Integer i: aMap.values()) {
 			System.out.print(i + "\t");
 		}
