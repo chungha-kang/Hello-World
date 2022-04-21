@@ -54,7 +54,7 @@ public class Sample01 {
 		 
 		for(Integer i: aMap.values()) {
 			System.out.print(i + "\t");
-		}
+		} 
 		System.out.println();
 		
 		result1 = aMap.get("a");
