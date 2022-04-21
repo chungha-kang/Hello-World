@@ -52,7 +52,7 @@ public class Sample01 {
 		}
 		System.out.println();
 		 
-		for(Integer i: aMap.values()) {
+		for(Integer i: aMap.values()) { 
 			System.out.print(i + "\t");
 		} 
 		System.out.println(); 
