@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+
+body * {		/* 전체 설정으로 해야 박스 크기가 안바뀜 */
+	box-sizing: border-box; 
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+}
+
+.test1 > .ex1 {
+	padding: 24px;
+	margin: 24px;
+	border-style: solid;
+	border-width: 12px;
+}
+
+.test2 > .ex1 {
+	background-clip: border-box;
+	/* background-color: rgb(187, 230, 255); */
+	background-image: url(./list-image2.png);
+	background-repeat: no-repeat;
+	background-size: 32px;
+	background-position: 100px 250px;
+	background-origin: border-box;
+	background-attachment: fixed;
+	padding: 24px;
+	border-style: solid;
+	border-color: rgba(0, 0, 0, 0);
+	border-width: 24px;
+	margin: 24px;
+}
+
+.test3 > .ex1 {
+	box-sizing: content-box;
+	background-color: lime;
+	border-style: solid;
+	border-width: 12px;
+	padding: 12px;
+	margin: 12px;
+	width: 300px; /* cotent-box 기준으로 300 */
+}
+.test3 > .ex2 {
+	box-sizing: border-box;
+	background-color: lime;
+	border-style: solid;
+	border-width: 12px;
+	padding: 12px;
+	margin: 12px;
+	width: 300px; /* content-box가 포함된 border-box 가 300 */	
+}
+
+.test4 > p {
+	display: inline;
+	width: 200px;
+	height: 200px;
+	padding: 24px;
+	margin: 24px;
+	border: 1px solid red;
+}
