@@ -5,12 +5,16 @@
 	<title>네이버 : 회원가입</title>
 </head>
 <body>
-	<label for="id_input"><b>아이디</b></label><br>
-	<input id="id_input" type="text" height=100" size="40" name="id" value="%bnsp @naver.com" required>
-	<br>
-	<br>
-	<label for="pw_input1"><b>비밀번호</b></label><br>
-	<input id="pw_input1" for="pw_inputrkatk1" type="password" size="40" name="pass"required><br>
+	<h1>NAVER</h1>
+	<form action="" method="POST">
+		<div>
+			<label for="id_input"><b>아이디</b></label><br>
+			<input id="id_input" type="text" name="id" required>
+		</div>
+		<div>
+			<label for="pw_input1"><b>비밀번호</b></label><br>
+			<input id="pw_input1" type="password" name="pass" required>
+		</div>
 	<br>
 	<br>
 	<label for="pw_input2"><b>비밀번호 재확인</b></label><br>
@@ -47,6 +51,6 @@
 		<button type="button">인증번호 받기</button><br>
 		<input type="text" name="valid_number" placeholder="인증번호 입력하세요" disabled>
 
-	
+	</form>
 </body>
 </html>
