@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 /*
-@import url('https://fonts.
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
 */
 
 @font-face {
@@ -38,23 +38,18 @@
 	font-size: 2rem;
 }
 
-
 .test1 > .ex1 {
 	font-variant: normal;
 }
+
 .test1 > .ex2 {
 	font-variant: small-caps;
 }
 .test2 {
-	font-variant: small-caps;
+	font-variant: "맑은 고딕";
 }
 .test2 > .ex1 {
-	font-family: "맑은 고딕";	
-}
-
-
-.test2 > .ex1 {
-	font-style: "normal";	
+	font-family: normal;	
 }
 .test2 > .ex2 {
 	font-style: "italic";	
@@ -63,7 +58,7 @@
 	font-style: "oblique";	
 }
 .test3 {
-	font: italic small-caps bold 24px "D2Coding";
+	font: italic small-caps bold 24px/48px "D2Coding";
 }
 .test4 {
 	/* color: rgba(255, 0, 0, 0.1); */
@@ -120,8 +115,4 @@
 	*/
 	list-style-image: none inside url(/list-image2.png);
 	padding-inline-start: 80px;
-}
-
-.test11 > ul > li {
-	
 }

@@ -1,32 +1,32 @@
 @charset "UTF-8";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.test > .f-right {
-	float: right;
+* {
+	box-sizing: border-box;
+	margin: 0;	padding: 0;
 }
 
-.test2 > p {
-	diplay: inline-block;
+.test1 > p {
+	display: inline-block;
 	vertical-align: top;
 	width: 200px;
 	height: 200px;
 	padding: 12px;
 	margin: 8px;
-	border: 1px solid black;	
+	border: 1px solid black;
+}
+
+.test1 > .f-right {
+	float: right;
+}
+
+.test2 > p {
+	display: inline-block;
+	vertical-align: top;
+	width: 200px;
+	height: 200px;
+	padding: 12px;
+	margin: 8px;
+	border: 1px solid black;
 }
 
 .test2 > .f-left {
@@ -44,7 +44,7 @@
 	width: 75%;
 	height: 360px;
 	background-color: lightcyan;
-	float: right
+	float: right;
 }
 .test4 aside {
 	width: 25%;
@@ -68,7 +68,7 @@
 	float: left
 }
 .right {
-	float: right
+	float: right;
 }
 .clear {
 	clear: both;
@@ -99,24 +99,21 @@
 	word-break: break-all;
 }
 .test8 table > caption {
-	text-align: right;	
+	text-align: right;
 }
 .test8 td,th {
 	text-align: left;
 	vertical-align: top;
 	padding: 6px 12px;
-	empty-cells: hide;	
+	empty-cells: hide;
 	height: auto;
 }
 col.w-60 {
-	width: 6opx;
+	width: 60px;
 }
 col.w-120 {
-	width: 12opx;
+	width: 120px;
 }
 col.w-240 {
-	width: 24opx;
-}
-col.w-auto {
-	width: auto;
+	width: 240px;
 }

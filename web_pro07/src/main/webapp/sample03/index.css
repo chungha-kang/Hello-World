@@ -9,24 +9,13 @@
 }
 
 .test1 div {
-	/* flex */
+	/* flex 컨테이너 안의 요소에 대해 부모 요소에 맞추어
+	   너비를 자동 조정(균등) 되도록 함. */
 	flex: 1;
 }
 
-.box-red {
-	background-color: red;
-}
-
-.box-blue {
-	background-color: blue;
-}
-
-.box-green {
-	background-color: green;
-}
-
 .test2 {
-	width: 100%;
+	width: 500px;
 	height: 300px;
 	border: 1px solid black;
 	display: flex;
@@ -43,7 +32,7 @@
 	width: 100%;
 	height: 300px;
 	border: 1px solid black;
-	display: row;
+	display: flex;
 	flex-direction: row;
 }
 
@@ -67,7 +56,7 @@
 		width: 100%;
 		height: 300px;
 		border: 1px solid black;
-		display: row;
+		display: flex;
 		flex-direction: column;
 	}
 }
@@ -76,7 +65,7 @@
 	width: 100%;
 	height: 300px;
 	border: 1px solid black;
-	display: row;
+	display: flex;
 	flex-wrap: wrap;
 }
 
@@ -103,6 +92,18 @@
 .sr3 {
 	/* 다른 요소보다 더 많이 줄어들게 만듬. */
 	flex-shrink: 3;
+}
+
+.box-red {
+	background-color: red;
+}
+
+.box-blue {
+	background-color: blue;
+}
+
+.box-green {
+	background-color: green;
 }
 
 .box-normal {

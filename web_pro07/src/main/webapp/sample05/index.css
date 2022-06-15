@@ -6,9 +6,11 @@
 
 .flex-menu {
 	display: flex;
+	/* flex-wrap: wrap; */
 }
 
 .flex-menu .menu-item {
+	/* flex-basis: 245px; */
 	flex-grow: 1;
 }
 
@@ -26,14 +28,9 @@ ul.menu {
 	padding: 0;
 }
 
-
-
-
-
-
-
-
-
+.menu .menu-item {
+	/* 이미 플렉스 영역의 요소라 필요 없음 */
+	/* display: inline-block; */
 	text-align: center;
 	width: 120px;
 }

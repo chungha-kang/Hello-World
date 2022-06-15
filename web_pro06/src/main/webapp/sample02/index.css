@@ -1,7 +1,6 @@
 @charset "UTF-8";
 
-
-body * {		/* 전체 설정으로 해야 박스 크기가 안바뀜 */
+body * {	/* 전체 설정으로 해야 박스 크기가 안바뀜 */
 	box-sizing: border-box; 
 	display: inline-block;
 	margin: 0;
@@ -40,6 +39,7 @@ body * {		/* 전체 설정으로 해야 박스 크기가 안바뀜 */
 	margin: 12px;
 	width: 300px; /* cotent-box 기준으로 300 */
 }
+
 .test3 > .ex2 {
 	box-sizing: border-box;
 	background-color: lime;
@@ -52,6 +52,22 @@ body * {		/* 전체 설정으로 해야 박스 크기가 안바뀜 */
 
 .test4 > p {
 	display: inline;
+	width: 200px;
+	height: 200px;
+	padding: 24px;
+	margin: 24px;
+	border: 1px solid red;
+}
+.test5 > p {
+	display: block;
+	width: 200px;
+	height: 200px;
+	padding: 24px;
+	margin: 24px;
+	border: 1px solid red;
+}
+.test6 > p {
+	display: inline-block;
 	width: 200px;
 	height: 200px;
 	padding: 24px;

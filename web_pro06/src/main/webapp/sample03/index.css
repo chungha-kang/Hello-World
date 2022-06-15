@@ -35,6 +35,9 @@
 	/* bottom: 24px; */
 }
 
+.test3 {
+	position: relative;
+}
 .test3 > * {
 	display: inline-block;
 }
@@ -68,7 +71,6 @@
 body {
 	margin-bottom: 64px;
 }
-
 .test5 > * {
 	display: inline-block;
 }
@@ -80,14 +82,12 @@ body {
 	visibility: visible;
 }
 
-
 .test6 table, td{
 	border: 1px solid black;
 }
 .test6 .collapse {
 	visibility: collapse;
 }
-
 
 .test7 {
 	position: relative;

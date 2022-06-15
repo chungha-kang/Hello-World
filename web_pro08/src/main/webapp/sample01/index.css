@@ -5,7 +5,7 @@
 	box-sizing: border-box;
 }
 
-body{
+body {
 	background-color: rgb(245, 246, 247);
 }
 
@@ -26,7 +26,7 @@ header {
 
 .form-control {
 	width: 100%;
-	margin: 0 1rem 1rem;
+	padding: 0 1rem 1rem;
 }
 
 .form-control-inline {
@@ -75,7 +75,7 @@ header {
 	margin-bottom: 0.4rem !important;
 }
 
-.form-control .form-label{
+.form-control .form-label {
 	display: inline-block;
 	width: 100%;
 }
@@ -103,7 +103,7 @@ header {
 }
 
 .form-control-inline > * {
-	width: calc(100% /3 - 0.3rem);
+	width: calc(100% / 3 - 0.3rem);
 }
 
 .form-control-flex * {
@@ -129,7 +129,7 @@ option {
 	font-weight: bold;
 	padding: 1rem;
 	border-style: none;
-	margin-bottom: 0;
+	border-width: 0;
 }
 
 .btn:active {
