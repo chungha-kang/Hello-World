@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- <properties url="file:///C:/Users/Chung/oracle_db.conf"> -->
+	<properties resource="resources/oracle_db.conf">
+		<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+	</properties>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+		<setting name="logImpl" value="LOG4J2" />
+	</settings>
+	<typeAliases>
+		<typeAlias type="com.data.vo.EmpVO" alias="empVo"/>
+		<typeAlias type="com.data.vo.TestVO" alias="testVo"/>
+		<typeAlias type="com.data.vo.EmpSelectVO" alias="empSelectVo"/>
+		<typeAlias type="com.data.vo.EmpComplexVO" alias="empComplexVo"/>
+		<typeAlias type="com.data.vo.JobVO" alias="jobVo"/>
+		<typeAlias type="com.data.vo.DeptVO" alias="deptVo"/>
+	</typeAliases>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}"/>
+				<property name="url" value="${url}"/>
+				<property name="username" value="puser1"/>
+				<property name="password" value="puser1"/>
+				<property name="poolMaximumIdleConnections" value="5"/>
+				<property name="poolMaximumActiveConnections" value="10"/>
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="resources/mapper/mapper.xml"/>
+		<mapper resource="resources/mapper/example.xml"/>
+	</mappers>
+</configuration>

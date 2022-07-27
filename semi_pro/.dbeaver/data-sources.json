@@ -28,8 +28,7 @@
 					"oracle.meta-search-in-synonyms": "false",
 					"@dbeaver-sid-service@": "SERVICE"
 				},
-				"auth-model": "oracle_native",
-				"handlers": {}
+				"auth-model": "oracle_native"
 			}
 		},
 		"oracle_thin-180d2883ab5-699bab614dfd1bab": {
@@ -42,11 +41,11 @@
 				"host": "localhost",
 				"port": "1521",
 				"database": "ORCL",
-				"url": "jdbc:oracle:thin:@db202204211241_medium?TNS_ADMIN=C:\\\\Users\\\\Chung\\\\eclipse\\\\oracle\\\\Wallet_DB202204211241",
+				"url": "jdbc:oracle:thin:@//localhost:1521/ORCL",
 				"home": "C:\\app\\Chung\\product\\18.0.0\\dbhomeXE",
 				"type": "dev",
 				"provider-properties": {
-					"@dbeaver-connection-type@": "CUSTOM",
+					"@dbeaver-connection-type@": "BASIC",
 					"show-only-one-schema@": "false",
 					"@dbeaver-check-schema-content@": "false",
 					"@dbeaver-always-show-dba@": "false",
@@ -59,7 +58,8 @@
 					"oracle.meta-search-in-synonyms": "false",
 					"@dbeaver-sid-service@": "SERVICE"
 				},
-				"auth-model": "oracle_native"
+				"auth-model": "oracle_native",
+				"handlers": {}
 			}
 		},
 		"oracle_thin-180d2883ae9-3e588e2d96336f52": {
@@ -71,7 +71,7 @@
 			"configuration": {
 				"host": "localhost",
 				"port": "1521",
-				"database": "ORCL",
+				"database": "XEPDB1",
 				"url": "jdbc:oracle:thin:@db202204211241_medium?TNS_ADMIN=C:\\\\Users\\\\Chung\\\\eclipse\\\\oracle\\\\Wallet_DB202204211241",
 				"home": "C:\\app\\Chung\\product\\18.0.0\\dbhomeXE",
 				"type": "dev",
@@ -89,7 +89,8 @@
 					"oracle.meta-search-in-synonyms": "false",
 					"@dbeaver-sid-service@": "SERVICE"
 				},
-				"auth-model": "oracle_native"
+				"auth-model": "oracle_native",
+				"handlers": {}
 			}
 		},
 		"oracle_thin-180d2883b2e-24afac55dc2967e9": {

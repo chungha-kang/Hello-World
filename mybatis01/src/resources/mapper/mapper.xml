@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="testMapper">
+	<resultMap type="empVo" id="empVoMap">
+		<result column="employee_id" property="empId" />
+		<result column="first_name" property="fName" />
+		<result column="last_name" property="lName" />
+	</resultMap>
+	
+	<resultMap type="empComplexVo" id="empComplexVoMap">
+		<result column="EMPLOYEE_ID"    property="empId"     javaType="_int" />
+		<result column="EMPLOYEE_NAME"  property="empName"   javaType="string" />
+		<result column="PHONE_NUMBER"   property="empPhone"  javaType="string" />
+		<result column="COMMISSION_PCT" property="empComPct" javaType="_double" />
+		<result column="SALARY"         property="empSalary" javaType="_int" />
+		<association property="dept" javaType="deptVo">
+			<result column="DEPARTMENT_ID"   property="deptId"   javaType="_int" />
+			<result column="DEPARTMENT_NAME" property="deptName" javaType="string" />
+		</association>
+		<association property="job" javaType="jobVO">
+			<result column="JOB_ID" 		property="jobCode" 	 javaType="string" />
+			<result column="JOB_TITLE" 		property="jobCode" 	 javaType="string" />
+			<result column="MIN_SALARY" 	property="jobCode" 	 javaType="_int" />
+			<result column="MAX_SALARY" 	property="jobCode" 	 javaType="_int" />
+		</association>
+	</resultMap>
+
+	<select id="test1" resultType="_int">
+		SELECT 1234 FROM DUAL
+	</select>
+	
+	<select id="test2" resultType="string">
+		SELECT 'Mybatis Connect' FROM DUAL
+	</select>
+	
+	<select id="test3" resultType="map">
+		SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME FROM EMPLOYEES
+	</select>
+	
+	<!-- mybatis-config.xml 파일에 TypeAliases 를 설정하여 com.data.vo.EmpVO 대신 empVo 로 사용 -->
+	<!-- <select id="test4" resultType="com.data.vo.EmpVO"> -->
+	<select id="test4" resultType="empVo">
+		SELECT EMPLOYEE_ID AS empid
+		     , FIRST_NAME AS fname
+		     , LAST_NAME AS lname
+		  FROM EMPLOYEES
+	</select>
+	
+	<select id="test5" resultMap="empVoMap">
+		SELECT EMPLOYEE_ID
+		     , FIRST_NAME
+		     , LAST_NAME
+		  FROM EMPLOYEES
+	</select>
+	
+	<select id="test6" resultMap="empVoMap">
+		SELECT EMPLOYEE_ID
+		     , FIRST_NAME
+		     , LAST_NAME
+		  FROM EMPLOYEES
+		 WHERE EMPLOYEE_ID = #{id}
+	</select>
+	
+	<select id="test7" parameterType="string" resultMap="empVoMap">
+		SELECT EMPLOYEE_ID
+		     , FIRST_NAME
+		     , LAST_NAME
+		  FROM EMPLOYEES
+		 WHERE FIRST_NAME = #{id}
+	</select>
+	
+	<select id="test8" parameterType="string" resultMap="empVoMap">
+		SELECT EMPLOYEE_ID
+		     , FIRST_NAME
+		     , LAST_NAME
+		  FROM EMPLOYEES
+		 WHERE FIRST_NAME LIKE '%' || #{id} || '%'
+	</select>
+	
+	<select id="test9" parameterType="map" resultMap="empVoMap">
+		SELECT EMPLOYEE_ID
+		     , FIRST_NAME
+		     , LAST_NAME
+		  FROM EMPLOYEES
+		 WHERE EMPLOYEE_ID BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="test10" parameterType="empVo" resultMap="empVoMap">
+		SELECT EMPLOYEE_ID
+		     , FIRST_NAME
+		     , LAST_NAME
+		  FROM EMPLOYEES
+		 WHERE EMPLOYEE_ID = #{empId}
+	</select>
+
+	<insert id="test11" parameterType="testVo">
+		INSERT INTO T_MYBATIS VALUES (SEQ_MYBATIS.NEXTVAL, #{name}, #{today})
+	</insert>
+	
+	<update id="test12" parameterType="map">
+		UPDATE T_MYBATIS
+		   SET NAME = #{name}
+		 WHERE ID = #{id}
+	</update>
+	
+	<update id="test13" parameterType="testVo">
+		UPDATE T_MYBATIS
+		   SET NAME = #{name}
+		 WHERE ID = #{id}
+	</update>
+	
+	<delete id="test14" parameterType="_int">
+		DELETE FROM T_MYBATIS
+		 WHERE ID = #{id}
+	</delete>
+	
+	<select id="test15" resultType="testVo">
+		SELECT ID
+		     , NAME
+		     , TODAY
+		  FROM T_MYBATIS
+		 WHERE ID = #{id}
+	</select>
+	
+	<select id="test16" parameterType="empSelectVo" resultType="empVo">
+		SELECT EMPLOYEE_ID
+		     , FIRST_NAME
+		     , LAST_NAME
+		     , HIRE_DATE
+		     , SALARY
+		  FROM EMPLOYEES
+<!-- 		 WHERE SALARY >= #{salary}
+		   AND HIRE_DATE BETWEEN #{startDate} AND #{endDate}
+		   AND DEPARTMENT_ID = #{deptId}; -->
+<!--     WHERE 1 = 1 -->	
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="salary != 0">
+				AND SALARY >= #{salary}
+			</if>
+			<choose>
+				<when test="deptId != 0">
+					AND DEPARTMENT_ID = #{deptId}
+				</when>
+				<when test="deptIdList != null">
+					<foreach collection="deptIdList" item="value" index="index"
+						open="AND DEPARTMENT_ID IN (" close=")" separator=", ">
+						#{value}
+					</foreach>
+				</when>
+			</choose>
+			<choose>
+				<when test="startDate != null and endDate != null">
+					AND HIRE_DATE BETWEEN #{startDate} AND #{endDate}
+				</when>
+				<when test=" startDate == null and endDate != null">
+					AND HIRE_DATE &lt;= #{endDate}
+				</when>
+				<when test=" startDate != null and endDate == null">
+					AND HIRE_DATE >= #{startDate}
+				</when>
+			</choose>
+		</trim>
+	</select>
+	<select id="trimTest" parameterType="map" resultType="_int">
+		SELECT COUNT(*) FROM EMPLOYEES
+		<trim prefix="WHERE" prefixOverrides="AND">
+		    <if test="empId != 0">
+		        AND EMPLOYEE_ID = #{empId}
+		    </if>
+		</trim>
+		AND 1 = 1
+	</select>
+	<insert id="seqGetInsert" parameterType="testVo" useGeneratedKeys="true"
+		keyProperty="id" keyColumn="ID">
+		INSERT INTO T_MYBATIS VALUES (SEQ_MYBATIS.NEXTVAL, #{name}, #{today})
+	</insert>
+	<select id="empComplexSelect" resultMap="empComplexVoMap">
+		SELECT E.EMPLOYEE_ID
+		     , E.FIRST_NAME || ' ' || E.LAST_NAME AS EMPLOYEE_NAME
+		     , E.PHONE_NUMBER
+		     , E.COMMISSION_PCT 
+		     , E.SALARY
+		     , D.DEPARTMENT_ID
+		     , D.DEPARTMENT_NAME
+		     , J.JOB_ID
+		     , J.JOB_TITLE
+		     , J.MIN_SALARY
+		     , J.MAX_SALARY
+		  FROM EMPLOYEES E
+		  JOIN DEPARTMENTS D
+		    ON E.DEPARTMENT_ID = D.DEPARTMENT_ID
+		  JOIN JOBS J
+		    ON E.JOB_ID = J.JOB_ID
+		 WHERE E.EMPLOYEE_ID = #{empId}
+	</select>
+</mapper>

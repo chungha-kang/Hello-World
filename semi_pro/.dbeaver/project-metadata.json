@@ -1,1 +1,1 @@
-{"resources":{"Scripts/Script1_Cloud.sql":{"default-schema":"PUSER1","sql-editor-data-source-id":"oracle_thin-180d2883b2e-24afac55dc2967e9","default-datasource":"oracle_thin-180d2883b2e-24afac55dc2967e9"}}}
+{"resources":{"Scripts/Script1_Cloud.sql":{"default-schema":"ADMIN","sql-editor-data-source-id":"oracle_thin-180d2883ae9-3e588e2d96336f52","default-datasource":"oracle_thin-180d2883ae9-3e588e2d96336f52"}}}

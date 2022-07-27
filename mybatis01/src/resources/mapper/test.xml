@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="testMapper">
+	<resultMap type="empVo" id="empVoMap">
+		<result column="employee_id" property="empId" />
+		<result column="first_name" property="fName" />
+		<result column="last_name" property="lName" />
+	</resultMap>
+	
+	<select id="selectSearchList" resultMap="boardResultSet">
+		SELECT BOARD_NO, BOARD_TITLE, USER_ID, COUNT, CREATE_DATE
+		FROM BOARD B
+		JOIN MEMBER ON(BOARD_WRITER-USER_NO)
+		<trim prefix="WHERE" prefixOverrides="AND/OR">
+			<choose>
+				<when test="writer != null">
+					AND USER_ID LIKE #{writer}
+				</when>
+				<when test="title != null">
+					AND BOARD_TITLE LIKE #{title}
+				</when>
+				<when test="content != null">
+					AND BOARD_CONTENT LIKE #{content}
+				</when>
+				<otherwise>
+					AND featured = 1 
+				</otherwise>
+			</choose>
+		</trim>
+		<![CDATA[
+		AND B.STATUS<>'N'
+		ORDER BY BOARD_NO DESC
+		]]>
+	</select>
+
+
+</mapper>
