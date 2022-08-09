@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/error")
 public class ErrorController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private String view = "/WEB-INF/error/error.jsp";   
+	private String view = "/WEB-INF/error/error.jsp";
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("error", request.getSession().getAttribute("error"));
@@ -20,7 +20,6 @@ public class ErrorController extends HttpServlet {
 		
 		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);
-		
 	}
 
 }

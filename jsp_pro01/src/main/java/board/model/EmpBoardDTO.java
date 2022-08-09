@@ -1,50 +1,95 @@
+package board.model;
 
 import java.util.*;
 
-public class EmpBoardDTO {
+import emps.model.EmpDTO;
 
+public class EmpBoardDTO {
+	
     public EmpBoardDTO() {
     }
-
+    
+    public EmpBoardDTO(int id) {
+    	this.id = id;
+    }
+    
     private int id;
     private String title;
     private String content;
-    private Int empId;
+    private int empId;
+    private EmpDTO empObj;
     private Date createDate;
+    private int viewCnt;
+    private int like;
     
-    public int getId() {
-        return 0;
-    }
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	public String getContent() {
+		return content;
+	}
+	
+	public void setContent(String content) {
+		this.content = content;
+	}
+	
+	public int getEmpId() {
+		return empId;
+	}
+	
+	public void setEmpId(int empId) {
+		this.empId = empId;
+	}
+	
+	public EmpDTO getEmpObj() {
+		return empObj;
+	}
 
-    public void setId(int value) {
-    }
+	public void setEmpObj(EmpDTO empObj) {
+		this.empObj = empObj;
+	}
 
-    public String getTitle() {
-        return "";
-    }
+	public Date getCreateDate() {
+		return createDate;
+	}
+	
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+	
+	public int getViewCnt() {
+		return viewCnt;
+	}
 
-    public void setTitle(String value) {
-    }
+	public void setViewCnt(int viewCnt) {
+		this.viewCnt = viewCnt;
+	}
 
-    public String getContent() {
-        return "";
-    }
+	public int getLike() {
+		return like;
+	}
 
-    public void setContent(String value) {
-    }
+	public void setLike(int like) {
+		this.like = like;
+	}
 
-    public Int getEmpId() {
-        return null;
-    }
-
-    public void setEmpId(Int value) {
-    }
-
-    public Date getCreateDate() {
-        return null;
-    }
-
-    public void setCreateDate(Date value) {
-    }
-
+	@Override
+	public String toString() {
+		return "EmpBoardDTO [id=" + id + ", title=" + title + ", content=" + content + ", empId=" + empId
+				+ ", createDate=" + createDate + ", viewCnt=" + viewCnt + ", like=" + like + "]";
+	}
+	
 }

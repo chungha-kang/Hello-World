@@ -14,10 +14,10 @@ import emps.model.EmpDetailDTO;
 import emps.service.EmpService;
 
 @WebServlet("/emps/detail")
-public class EmpDetailController extends HttpServlet {
+public class EmpsDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String view = "/WEB-INF/jsp/emps/detail.jsp";
-
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// id 파라메터 추출 후 변수 id 에 저장
 		String id = request.getParameter("id");
@@ -32,16 +32,16 @@ public class EmpDetailController extends HttpServlet {
 		request.setAttribute("dataDetail", dataDetail);
 		
 		// 프로필 사진이 /static/img/emp/ 디렉터리에 직원ID 로 저장되어 있는 경우 프로필 사진의 경로를
-		// request 객체의 속성으로 저장 (단, 없으면 기본 사진이 사용되게 한다.)
+		// request 객체의 속성으로 저장(단, 없으면 기본 사진이 사용되게 한다.)
 		String imagePath = empService.getProfileImage(request, "/static/img/emp/", data);
 		request.setAttribute("imagePath", imagePath);
 		
 		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);
 	}
-			
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 	}
 
 }

@@ -14,6 +14,26 @@ function getContextPath() {
 	return contextPath;
 }
 
+function themeChange(themeName) {
+	let contextPath = getContextPath();
+	let url = contextPath + 'set/theme?name=' + themeName;
+	let next = "&next=" + location.href;
+	location.href = url + next;
+	
+	$.ajax({
+		type: "get",
+		url: url,
+		data: {
+			name: themeName,
+			next: location.href
+		},
+		dataType: "json",
+		success: function(data) {
+			location.assign(data.next);
+		}
+	});
+}
+
 function ajaxUploadImage(e) {
 	var file = e.target.files[0];
 	var fData = new FormData();
@@ -27,11 +47,9 @@ function ajaxUploadImage(e) {
 		processData: false,
 		contentType: false,
 		success: function(data, status) {
-			//console.log("전송 성공!");
 			prevImage.src = data.loc;
 		},
 		error: function(data, status) {
-			//console.log("처리 실패!");
 			prevImage.src = data.loc;
 		}
 	});
