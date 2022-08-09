@@ -18,6 +18,22 @@ public class EmpDTO {
 		this.setEmpName(empName);
 	}
 	
+	public String getEmpFirstName() {
+		return empFirstName;
+	}
+	
+	public void setEmpFirstName(String empFirstName) {
+		this.empFirstName = empFirstName;
+	}
+	
+	public String getEmpLastName() {
+		return empLastName;
+	}
+	
+	public void setEmpLastName(String empLastName) {
+		this.empLastName = empLastName;
+	}
+	
 	public int getEmpId() {
 		return empId;
 	}
@@ -87,22 +103,6 @@ public class EmpDTO {
 		this.deptId = Integer.parseInt(deptId);
 	}
 	
-	public String getEmpFirstName() {
-		return empFirstName;
-	}
-
-	public void setEmpFirstName(String empFirstName) {
-		this.empFirstName = empFirstName;
-	}
-
-	public String getEmpLastName() {
-		return empLastName;
-	}
-
-	public void setEmpLastName(String empLastName) {
-		this.empLastName = empLastName;
-	}
-
 	@Override
 	public String toString() {
 		return "EmpDTO [empId=" + empId + ", empName=" + empName + ", email=" + email + ", jobName=" + jobName

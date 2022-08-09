@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.myhome.web.dept.model.DeptDTO;
 import com.myhome.web.dept.service.DeptService;
@@ -60,7 +61,7 @@ public class LoginController {
 //		logger.info("empName : {}" + loginVo.getEmpName());
 		
 	public String login(HttpSession session, LoginVO loginVo, String deptRe, Model model, HttpServletResponse response) {
-		logger.info("lgoin({}, {}, {})", loginVo.getEmpId(), loginVo.getDeptId(), loginVo.getEmpName());
+		logger.info("login({}, {}, {}, {})", loginVo.getEmpId(), loginVo.getDeptId(), loginVo.getEmpName(), deptRe);
 		
 		boolean result = service.login(session, loginVo);
 		
@@ -70,7 +71,6 @@ public class LoginController {
 			if(deptRe != null) {
 				cookie = new Cookie("deptRe", String.valueOf(loginVo.getDeptId()));
 				cookie.setMaxAge(60 * 60 * 24 * 5);
-				response.addCookie(cookie);
 			} else {
 				cookie = new Cookie("deptRe", "");
 				cookie.setMaxAge(0);

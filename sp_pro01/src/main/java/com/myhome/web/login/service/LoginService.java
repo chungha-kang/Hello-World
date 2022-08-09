@@ -17,12 +17,12 @@ import com.myhome.web.login.vo.LoginVO;
 
 @Service
 public class LoginService {
-
+	
 	private static final Logger logger = LoggerFactory.getLogger(LoginService.class);
-
+	
 	@Autowired
 	private LoginDAO dao;
-	
+
 	public boolean login(HttpSession session, LoginVO loginVo) {
 		logger.info("login({}, {})", session, loginVo);
 		
@@ -30,16 +30,16 @@ public class LoginService {
 		data.setDeptId(loginVo.getDeptId());
 		
 		data = dao.selectEmployee(data);
-
+		
 		if(data == null) {
 			return false;
 		} else {
-//			Map<String, PermDTO> permData = new HashMap<String, PermDTO>();
-//			for(PermDTO perm: dao.selectPermission(data.getEmpId())) {
-//				permData.put(perm.getTableName(), perm);
-//			}
-//			
-//			session.setAttribute("permData", permData);
+			// Map<String, PermDTO> permData = new HashMap<String, PermDTO>();
+			// for(PermDTO perm: dao.selectPermission(data.getEmpId())) {
+			// 	permData.put(perm.getTableName(), perm);
+			// }
+			
+			// session.setAttribute("permData", permData);
 			session.setAttribute("loginData", data);
 			return true;
 		}

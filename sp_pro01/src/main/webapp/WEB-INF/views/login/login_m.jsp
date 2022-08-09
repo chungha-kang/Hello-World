@@ -36,11 +36,11 @@
 		<label for="id_deptId">부서 선택</label>
 	</div>
 	<div class="form-floating mb-2">
-		<input type="text" class="form-control" id="id_empName" name="empName" 
+		<input type="text" class="form-control" id="id_empName" name="empName"
 			value="${param.empName}" placeholder="이름">
 		<label for="id_empName">이름</label>
 	</div>
-	<div class="row mb-2 text-end">
+	<div class="mb-2 text-end">
 		<div class="form-check form-check-inline form-switch">
 			<input class="form-check-input" role="switch" type="checkbox" id="id_deptRe"
 				name="deptRe" ${not empty cookie.deptRe.value ? 'checked' : ''}>
