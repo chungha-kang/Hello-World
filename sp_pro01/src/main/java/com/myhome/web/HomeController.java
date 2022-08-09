@@ -15,15 +15,15 @@ import com.myhome.web.dept.service.DeptService;
 
 @Controller
 public class HomeController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class); 	// 로그인 기능
+	// 로그인 기능
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	@Autowired
 	private DeptService deptService;
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Model model) {
-		logger.info("Welcome index"); 						// 로그인 출력 (로그기록)
+		logger.info("Welcome index!"); // 로그인 출력
 		
 		List<DeptDTO> deptDatas = deptService.getAll();
 		

@@ -106,6 +106,7 @@ public class EmpDTO {
 	@Override
 	public String toString() {
 		return "EmpDTO [empId=" + empId + ", empName=" + empName + ", email=" + email + ", jobName=" + jobName
-				+ ", jobId=" + jobId + ", deptName=" + deptName + ", deptId=" + deptId + "]";
+				+ ", jobId=" + jobId + ", deptName=" + deptName + ", deptId=" + deptId + ", empFirstName="
+				+ empFirstName + ", empLastName=" + empLastName + "]";
 	}
 }
