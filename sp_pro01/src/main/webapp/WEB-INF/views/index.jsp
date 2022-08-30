@@ -7,7 +7,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>사내 관리 시스템</title>
+	<title>사내 관리 시스템 - 관리자용</title>
 	<%@ include file="./module/head.jsp" %>
 </head>
 <body>
@@ -19,7 +19,7 @@
 			<%@ include file="./login/login_m.jsp" %>
 		</c:if>
 		<c:if test="${not empty sessionScope.loginData}">
-			${sessionScope.loginData.empName} 님 환영합니다.
+			${sessionScope.loginData.empName} 님 환영합니다. 관리자 페이지 입니다.
 		</c:if>
 	</section>
 </body>

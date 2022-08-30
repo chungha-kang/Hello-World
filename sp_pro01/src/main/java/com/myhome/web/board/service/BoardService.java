@@ -1,86 +1,124 @@
 package com.myhome.web.board.service;
 
+import java.sql.SQLDataException;
+import java.util.*;
+
 import javax.servlet.http.HttpSession;
 
-import board.model.EmpBoardDAO;
-import board.model.EmpBoardDTO;
-import board.model.EmpBoardStatisDTO;
-import common.util.Paging;
-import emps.model.EmpDTO;
+import org.apache.ibatis.cursor.Cursor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-public class BoardService {
-	
+import com.myhome.web.board.controller.BoardController;
+import com.myhome.web.board.model.BoardDAO;
+import com.myhome.web.board.model.BoardDTO;
+import com.myhome.web.board.model.BoardStatisDTO;
+import com.myhome.web.board.vo.BoardVO;
+import com.myhome.web.common.util.Paging;
+import com.myhome.web.emp.model.EmpDTO;
+
 @Service
-	public EmpBoardService() {
+public class BoardService {
+
+	@Autowired
+	private BoardDAO dao;
+	
+	public List<BoardDTO> getAll(HttpSession session) {
+		List<BoardDTO> datas = dao.selectAll();
+		return datas;
 	}
 	
-	public int add(EmpBoardDTO data) {
-		EmpBoardDAO dao = new EmpBoardDAO();
+	@Transactional
+	public Paging getPage(HttpSession session, int page, int limit) {
+		int totalRows = dao.getTotalRows();
 		
-		// 직접 시퀸스를 생성하여 DTO 에 설정하는 방법
-		// int seq = dao.getNextSeq();
-		// data.setId(seq);
+		Paging paging = new Paging(page, limit, totalRows);
+		dao.selectPage(paging);
+		return paging;
+	}
+
+	public BoardDTO getData(HttpSession session, int id) {
+		BoardDTO data = dao.selectData(id);
+		return data;
+	}
+	
+	public int add(HttpSession session, EmpDTO empDto, BoardVO data) {
+		BoardDTO boardDto = new BoardDTO();
+		boardDto.setTitle(data.getTitle());
+		boardDto.setContent(data.getContent());
+		boardDto.setEmpId(empDto.getEmpId());
 		
-		boolean result = dao.insertData(data);
+		boolean result = dao.insertData(boardDto);
 		
 		if(result) {
-			dao.commit();
-			
-			return data.getId();
+			return boardDto.getId();
 		}
-		dao.rollback();
-		
 		return 0;
 	}
 
-	public EmpBoardDTO getData(int id) {
-		EmpBoardDAO dao = new EmpBoardDAO();
-		
-		EmpBoardDTO data = dao.selectData(id);
-		
-		
-		return data;
+	public boolean modify(HttpSession session, BoardDTO data) {
+		boolean result = dao.updateData(data);
+		return result;
 	}
-
-	public void incViewCnt(HttpSession session, EmpBoardDTO data) {
-		EmpDTO empData = (EmpDTO)session.getAttribute("loginData");
-		EmpBoardDAO dao = new EmpBoardDAO();
-
+	
+	@Transactional
+	public boolean remove(BoardDTO data) {
+		dao.deleteStatisData(data);
+		boolean result = dao.deleteData(data);
+		return result;
+	}
+	
+	@Transactional
+	public void incViewCnt(EmpDTO empDto, BoardDTO data) {
 		boolean result = false;
-		EmpBoardStatisDTO statisData = new EmpBoardStatisDTO();
+		BoardStatisDTO statisData = new BoardStatisDTO();
 		statisData.setbId(data.getId());
-		statisData.setEmpId(empData.getEmpId());
+		statisData.setEmpId(empDto.getEmpId());
 		
 		statisData = dao.selectStatis(statisData);
 		
 		if(statisData == null) {
 			result = dao.updateViewCnt(data);
-			statisData = new EmpBoardStatisDTO();
+			if(!result) {
+				throw new RuntimeException("BoardService.incViewCnt - 조회 수 업데이트 작업중 오류 발생");
+			}
+			statisData = new BoardStatisDTO();
 			statisData.setbId(data.getId());
-			statisData.setEmpId(empData.getEmpId());
+			statisData.setEmpId(empDto.getEmpId());
 			
-			dao.insertStatis(statisData);
+			result = dao.insertStatis(statisData);
+			if(!result) {
+				throw new RuntimeException("BoardService.incViewCnt - 통계 정보 추가 작업중 오류 발생");
+			}
 		} else {
 			java.util.Date now = new java.util.Date();
 			long timeDiff = now.getTime() - statisData.getLatestView().getTime();
 			if(timeDiff / (1000 * 60 * 60 * 24) >= 7) {
 				result = dao.updateViewCnt(data);
+				if(!result) {
+					throw new RuntimeException("BoardService.incViewCnt - 조회 수 업데이트 작업중 오류 발생");
+				}
 				dao.updateStatis(statisData);
+				if(!result) {
+					throw new RuntimeException("BoardService.incViewCnt - 통계 정보 업데이트 작업중 오류 발생");
+				}
 			}
 		}
 		
 		if(result) {
 			data.setViewCnt(data.getViewCnt() + 1);
-			dao.commit();
-		} else {
-			dao.rollback();
 		}
-		
 	}
 	
-	public void incLike(HttpSession session, EmpBoardDTO data) {
-		EmpDTO empData = (EmpDTO)session.getAttribute("loginData");
-		EmpBoardDAO dao = new EmpBoardDAO();
+	public void addLike(HttpSession session, EmpDTO empDto, BoardDTO data) throws SQLDataException {
+		this.incLike(empDto, data);
+	}
+	
+	@Transactional(rollbackFor = SQLDataException.class)
+	private void incLike(EmpDTO empDto, BoardDTO data) throws SQLDataException {
 		
 		// 1. EMP_BOARDS_STATISTICS 테이블에서 추천 했던 기록을 찾는다.
 		// 2. 찾은 기록에서 ISLIKE 컬럼의 값에 따라 다음의 작업을 진행한다.
@@ -90,9 +128,9 @@ public class BoardService {
 		//          EMP_BOARDS 에서 추천수 - 1 을 한다.
 		
 		boolean result = false;
-		EmpBoardStatisDTO statisData = new EmpBoardStatisDTO();
+		BoardStatisDTO statisData = new BoardStatisDTO();
 		statisData.setbId(data.getId());
-		statisData.setEmpId(empData.getEmpId());
+		statisData.setEmpId(empDto.getEmpId());
 		
 		statisData = dao.selectStatis(statisData);
 		
@@ -106,69 +144,25 @@ public class BoardService {
 			data.setLike(data.getLike() + 1);
 		}
 		
-		dao.updateStatis(statisData, "like");
-		result = dao.updateLike(data);
-		
-		if(result) {
-			dao.commit();
-		} else {
-			dao.rollback();
+		result = dao.updateStatis(statisData, "like");
+		if(!result) {
+			throw new SQLDataException("BoardService.incLike - 추천 통계 업데이트 중 문제가 발생하였습니다.");
 		}
 		
+		result = dao.updateLike(data);
+		if(!result) {
+			throw new SQLDataException("BoardService.incLike - 추천 수 업데이트 중 문제가 발생하였습니다.");
+		}
 	}
-
-	public Paging getPage(String page, String limit) {
-		EmpBoardDAO dao = new EmpBoardDAO();
-		
-		int totalRows = dao.getTotalRows();
-		
-		Paging paging = new Paging(Integer.parseInt(page), Integer.parseInt(limit), totalRows);
-		dao.selectPage(paging);
-		
-		
-		return paging;
-	}
-	
-
+	/*
 	public Paging getPage(String page, String limit, String search) {
-		EmpBoardDAO dao = new EmpBoardDAO();
-		
 		int totalRows = dao.getTotalRows(search);
 		
 		Paging paging = new Paging(Integer.parseInt(page), Integer.parseInt(limit), totalRows);
 		dao.selectPage(paging, search);
 		
-		
 		return paging;
 	}
 
-	public boolean remove(EmpBoardDTO data) {
-		EmpBoardDAO dao = new EmpBoardDAO();
-		
-		dao.deleteStatisData(data);
-		boolean result = dao.deleteData(data);
-		
-		if(result) {
-			dao.commit();
-		} else {
-			dao.rollback();
-		}
-		
-		
-		return result;
-	}
-
-	public boolean modify(EmpBoardDTO data) {
-		EmpBoardDAO dao = new EmpBoardDAO();
-		boolean result = dao.updateData(data);
-		if(result) {
-			dao.commit();
-		} else {
-			dao.rollback();
-		}
-		
-		return result;
-	}
-
-}
+	*/
 }

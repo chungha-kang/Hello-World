@@ -25,6 +25,12 @@
 		form.submit();
 	}
 </script>
+<script type="text/javascript">
+
+	document.querySelector('#btn_test').addEventListener('click', function() {
+		alert('확인');
+	});
+</script>
 <body>
 	<header></header>
 	<section class="container">
@@ -65,6 +71,7 @@
 				</div>
 			</div>
 		</div>
+		<button id="btn_test">확인</button>	
 	</section>
 	<footer></footer> 
 	<c:if test="${not empty errorMsg}">

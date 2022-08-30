@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,15 +25,13 @@ import com.myhome.web.login.vo.LoginVO;
 @Controller
 public class LoginController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
-	
 	@Autowired
 	private LoginService service;
 	
 	@Autowired
 	private DeptService deptService;
 	
-	@RequestMapping(value="/login", method=RequestMethod.POST)
+//	@RequestMapping(value="/login", method=RequestMethod.POST)
 //	public String login(Model model, HttpServletRequest res) {
 //		
 //		logger.info("empId : {}" + res.getParameter("empId"));
@@ -59,10 +58,17 @@ public class LoginController {
 //		logger.info("empId : {}" + loginVo.getEmpId());
 //		logger.info("deptId : {}" + loginVo.getDeptId());
 //		logger.info("empName : {}" + loginVo.getEmpName());
-		
-	public String login(HttpSession session, LoginVO loginVo, String deptRe, Model model, HttpServletResponse response) {
-		logger.info("login({}, {}, {}, {})", loginVo.getEmpId(), loginVo.getDeptId(), loginVo.getEmpName(), deptRe);
-		
+	
+	@GetMapping(value="/login")
+	public String login(Model model) {
+		List<DeptDTO> deptDatas = deptService.getAll();
+		model.addAttribute("deptDatas", deptDatas);
+		return "login/login";
+	}
+	
+	@RequestMapping(value="/login", method=RequestMethod.POST)	
+	public String login(HttpSession session, LoginVO loginVo, String deptRe, String url
+			, Model model, HttpServletRequest request, HttpServletResponse response) {
 		boolean result = service.login(session, loginVo);
 		
 		if(result) {
@@ -76,12 +82,10 @@ public class LoginController {
 				cookie.setMaxAge(0);
 			}
 			response.addCookie(cookie);
-			return "redirect:/index";
+			return "redirect:" + url.replaceFirst(request.getContextPath() + "/", "/");
 		} else {
 			// 로그인 실패
-			List<DeptDTO> deptDatas = deptService.getAll();
-			model.addAttribute("deptDatas", deptDatas);
-			return "/login/login";
+			return login(model);
 		}
 	}
 	

@@ -8,13 +8,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>${data.title}</title>
-	<link rel="stylesheet" type="text/css" href="/static/bs5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-	<script type="text/javascript" src="/static/bs5/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="/static/js/jquery-3.6.0.min.js"></script>
+	<jsp:include page="../module/head.jsp" />
 </head>
 <body>
-	<header></header>
+	<header>
+		<jsp:include page="../module/navigation.jsp" />
+	</header>
 	<section class="container">
 		<div class="mt-3">
 			<div class="mb-1 border-bottom border-2 border-secondary">
@@ -35,7 +34,17 @@
 					<label id="id_like" class="text-secondary text-opacity-75">${data.like}</label>
 				</div>
 			</div>
-			<div class="mb-1 text-end">
+			<div class="row mb-3">
+				<ul class="ms-auto col-4 list-group">
+					<c:forEach items="${fileDatas}" var="file">
+						<li class="text-truncate list-group-item">
+							<c:url var="downUrl" value="${file.url}/${file.uuidName}" />
+							<a class="link-info text-decoration-none" href="${downUrl}" download="${file.fileName}">${file.fileName}</a>
+						</li>
+					</c:forEach>
+				</ul>
+			</div>
+			<div class="mb-3 text-end">
 				<c:url var="boardUrl" value="/board" />
 				<button class="btn btn-primary" type="button" onclick="location.href='${boardUrl}'">목록</button>
 				<c:if test="${data.empId eq sessionScope.loginData.empId}">
@@ -51,9 +60,9 @@
 			</c:url>
 			<ul class="pagination justify-content-center">
 				<c:choose>
-					<c:when test="${datas.hasPrevPage()}">
+					<c:when test="${commentPage.hasPrevPage()}">
 						<li class="page-item">
-							<a class="page-link bi bi-caret-left-fill" href="${pageUrl}?page=${commentPage.prevPage}"></a>
+							<a class="page-link bi bi-caret-left-fill" href="${pageUrl}&page=${commentPage.prevPage}"></a>
 						</li>
 					</c:when>
 					<c:otherwise>
@@ -62,15 +71,15 @@
 						</li>
 					</c:otherwise>
 				</c:choose>
-				<c:forEach items="${datas.getPages(commentPage.currentPage - 2, commentPage.currentPage + 2)}" var="item">
+				<c:forEach items="${commentPage.getPages(commentPage.currentPage - 2, commentPage.currentPage + 2)}" var="item">
 					<li class="page-item ${commentPage.currentPage == item ? ' active' : ''}">
-						<a class="page-link" href="${pageUrl}?page=${item}">${item}</a>
+						<a class="page-link" href="${pageUrl}&page=${item}">${item}</a>
 					</li>
 				</c:forEach>
 				<c:choose>
 					<c:when test="${commentPage.hasNextPage()}">
 						<li class="page-item">
-							<a class="page-link bi bi-caret-right-fill" href="${pageUrl}?page=${commentPage.nextPage}"></a>
+							<a class="page-link bi bi-caret-right-fill" href="${pageUrl}&page=${commentPage.nextPage}"></a>
 						</li>
 					</c:when>
 					<c:otherwise>
@@ -81,7 +90,7 @@
 				</c:choose>
 			</ul>
 		</div>
-			
+		
 		<div class="mb-3">
 			<c:forEach items="${commentPage.pageDatas}" var="comment">
 				<div class="mb-1">
@@ -106,9 +115,9 @@
 				</div>
 			</c:forEach>
 			<div class="mb-1">
-				<c:url var="commentUrl" value="/comment" />
+				<c:url var="commentUrl" value="/board/comment" />
 				<form action="${commentUrl}/add" method="post">
-					<input type="hidden" name="${data.id}">
+					<input type="hidden" name="bid" value="${data.id}">
 					<div class="input-group">
 						<textarea class="form-control" name="content" rows="3" placeholder="댓글 작성"></textarea>
 						<button class="btn btn-outline-dark" type="button" onclick="formCheck(this.form)">작성</button>
@@ -160,9 +169,9 @@
 				form.submit();
 			}
 		}
-		function changModify(element) {
+		function changeModify(element) {
 			element.innerText = "확인";
-			elment.nextElementSibling.remove();
+			element.nextElementSibling.remove();
 			
 			var content = element.parentElement.previousElementSibling.innerText;
 			var textarea = document.createElement("textarea");
@@ -179,8 +188,8 @@
 			var btnDelete = document.createElement("button");
 			btnDelete.innerText = "삭제";
 			btnDelete.setAttribute("type", "button");
-			btnDelete.setAttriubte("class", "btn btn-sm btn-outline-dark");
-			btnDelete.setAttriubte("onclick", "commentDelete(this);");
+			btnDelete.setAttribute("class", "btn btn-sm btn-outline-dark");
+			btnDelete.setAttribute("onclick", "commentDelete(this);");
 			
 			element.parentElement.append(btnDelete);
 			
@@ -189,12 +198,10 @@
 		}
 		function commentUpdate(e) {
 			var cid = e.target.parentElement.parentElement.firstElementChild.value;
-		//	console.log(e.target.parentElement.previousElementSibling.children[0]);
 			var value = e.target.parentElement.previousElementSibling.children[0].value;
-		//	console.log(value);
-		//	console.log(cid);
+			
 			$.ajax({
-				url: "/comment/modify",
+				url: "${commentUrl}/modify",
 				type: "post",
 				data: {
 					id: cid,
@@ -213,11 +220,11 @@
 			var card = element.parentElement.parentElement.parentElement.parentElement;
 			
 			$.ajax({
-				url: "/comment/delete",
+				url: "${commentUrl}/delete",
 				type: "post",
 				data: {
 					id: cid
-				}
+				},
 				success: function(data) {
 					// 서버에 데이터 전송 후 삭제 성공 하면 화면 상에서도 삭제.
 					if(data.code === "success") {
@@ -228,7 +235,7 @@
 		}
 		function incLike(element, id) {
 			$.ajax({
-				url: "/board/detail",
+				url: "${boardUrl}/like",
 				type: "post",
 				data: {
 					id: id
@@ -236,6 +243,17 @@
 				success: function(data) {
 					if(data.code === "success") {
 						element.innerText = data.likeCnt;
+					} else {
+						var myModal = new bootstrap.Modal(document.getElementById("resultModal"), {
+							keyboard: false
+						});
+						
+						var title = myModal._element.querySelector(".modal-title");
+						var body = myModal._element.querySelector(".modal-body");
+						title.innerText = data.title;
+						body.innerHTML = "<p>" + data.message + "</p>"
+						
+						myModal.show();
 					}
 				}
 			});
@@ -243,7 +261,7 @@
 		function boardDelete(boardId) {
 			$.ajax({
 				type: "post",
-				url: "/board/delete",
+				url: "${boardUrl}/delete",
 				data: {
 					id: boardId
 				},
@@ -257,15 +275,31 @@
 					var body = myModal._element.querySelector(".modal-body");
 					title.innerText = data.title;
 					body.innerHTML = "<p>" + data.message + "</p>"
-						
+					
 					myModal.show();
 				}
 			})
 		}
 	</script>
+	
+	<c:if test="${not empty sessionScope.commentError}">
+		<script type="text/javascript">
+			var myModal = new bootstrap.Modal(document.getElementById("resultModal"), {
+				keyboard: false
+			});
+			
+			var title = myModal._element.querySelector(".modal-title");
+			var body = myModal._element.querySelector(".modal-body");
+			title.innerText = "오류";
+			body.innerHTML = "<p>" + "${sessionScope.commentError}" + "</p>"
+			
+			myModal.show();
+		</script>
+		<c:remove var="commentError" scope="session" />
+	</c:if>
 	<c:if test="${sessionScope.error}">
 		<script type="text/javascript">
-			alert("${sessionScope.error}")
+			alert("${sessionScope.error}");
 		</script>
 	</c:if>
 </body>
