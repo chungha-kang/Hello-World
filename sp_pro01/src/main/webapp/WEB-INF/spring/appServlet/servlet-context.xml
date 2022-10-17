@@ -69,4 +69,16 @@
 	</interceptors>
 	
 	<aop:aspectj-autoproxy />
+	
+	<!--  -->
+	<beans:beans>
+	</beans:beans>
+	
+	<beans:beans id="chattingCSHandler" class="com.myhome.web.socket.ChattingCS"></beans:beans>
+	<websocket:handlers>
+		<websocket:mapping handler="chatttingCSHandler" path="/chatting/cs" />
+		<websocket:handshake-interceptors>
+			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"></beans:bean>
+		</websocket:handshake-interceptors>
+	</websocket:handlers>
 </beans:beans>

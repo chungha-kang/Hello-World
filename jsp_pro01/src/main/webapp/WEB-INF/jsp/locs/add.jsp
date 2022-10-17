@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*,com.myhome.web.dept.model.DeptDTO" %>
+<%@ page import="java.util.*,com.sharehouse.home.DeptDTO" %>
 <!DOCTYPE html>
 <html>
 <head>
