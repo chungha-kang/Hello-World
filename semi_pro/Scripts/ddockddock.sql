@@ -30,3 +30,6 @@ SELECT * FROM ;
 SELECT * FROM ALL_TABLES;
 
 SELECT instance FROM v$thread;
+
+
+SELECT * FROM v$version;
