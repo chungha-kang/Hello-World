@@ -8,6 +8,7 @@ public class No2884 {
 		Scanner sc = new Scanner(System.in);
 		int H = sc.nextInt();
 		int M = sc.nextInt();
+		
 		sc.close();
 		
 		if(M < 45) {
