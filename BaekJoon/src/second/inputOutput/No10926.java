@@ -2,15 +2,13 @@ package second.inputOutput;
 
 import java.util.Scanner;
 
-public class No1000 {
+public class No10926 {
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
+		String str = in.next();
 		
-		int A = in.nextInt();
-		int B = in.nextInt();
-		
-		System.out.println(A - B);
+		System.out.println(str + "?!!");
 		in.close();
 	}
 	
